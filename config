@@ -1,0 +1,130 @@
+# ============================================================
+#  ~/.config/terminator/config — Catppuccin Mocha theme
+#  Place at: ~/.config/terminator/config
+# ============================================================
+
+[global_config]
+  title_font = JetBrainsMono Nerd Font 11
+  title_transmit_bg_color = "#b4befe"
+  title_transmit_fg_color = "#1e1e2e"
+  title_inactive_bg_color = "#313244"
+  title_inactive_fg_color = "#6c7086"
+  title_receive_bg_color = "#a6e3a1"
+  title_receive_fg_color = "#1e1e2e"
+  title_use_system_font = False
+  suppress_multiple_term_dialog = True
+  tab_position = top
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, CustomCommandsMenu
+
+[keybindings]
+  # Keep defaults mostly, add useful ones
+  broadcast_all = <Primary>F12
+  cycle_next = <Primary>Tab
+  close_term = <Primary>w
+
+[profiles]
+  [[default]]
+    background_color  = "#1e1e2e"
+    background_type   = transparent
+    background_darkness = 0.90
+    cursor_color      = "#f5e0dc"
+    cursor_blink      = True
+    cursor_shape      = ibeam
+    font              = JetBrainsMono Nerd Font 12
+    foreground_color  = "#cdd6f4"
+    use_system_font   = False
+    scrollback_lines  = 10000
+    scroll_on_output  = False
+    scroll_on_keystroke = True
+    show_titlebar     = False
+    copy_on_selection = True
+    word_chars        = "-,./?%&#:_"
+
+    # Catppuccin Mocha palette
+    palette = "#45475a:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#bac2de:#585b70:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#a6adc8"
+
+  [[red_team]]
+    # Darker red tint for offensive work — visual reminder
+    background_color  = "#1a0a0a"
+    foreground_color  = "#f38ba8"
+    cursor_color      = "#f38ba8"
+    font              = JetBrainsMono Nerd Font 12
+    use_system_font   = False
+    show_titlebar     = True
+    title_transmit_bg_color = "#f38ba8"
+    palette = "#45475a:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#bac2de:#585b70:#f38ba8:#a6e3a1:#f9e2af:#89b4fa:#f5c2e7:#94e2d5:#a6adc8"
+
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1400, 850
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+
+  [[ops]]
+    # DevOps layout: editor left, logs top-right, shell bottom-right
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1600, 900
+    [[[child1]]]
+      type = HPaned
+      parent = window0
+      ratio = 0.62
+    [[[editor]]]
+      type = Terminal
+      parent = child1
+      profile = default
+      command = nvim
+    [[[right_pane]]]
+      type = VPaned
+      parent = child1
+      ratio = 0.55
+    [[[logs]]]
+      type = Terminal
+      parent = right_pane
+      profile = default
+    [[[shell]]]
+      type = Terminal
+      parent = right_pane
+      profile = default
+
+  [[recon]]
+    # 4-pane recon layout
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1600, 900
+    [[[root]]]
+      type = HPaned
+      parent = window0
+      ratio = 0.50
+    [[[left_split]]]
+      type = VPaned
+      parent = root
+      ratio = 0.50
+    [[[nmap]]]
+      type = Terminal
+      parent = left_split
+      profile = red_team
+    [[[gobuster]]]
+      type = Terminal
+      parent = left_split
+      profile = red_team
+    [[[right_split]]]
+      type = VPaned
+      parent = root
+      ratio = 0.50
+    [[[enum]]]
+      type = Terminal
+      parent = right_split
+      profile = red_team
+    [[[notes]]]
+      type = Terminal
+      parent = right_split
+      profile = red_team
+      command = nvim notes.md
